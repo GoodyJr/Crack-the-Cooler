@@ -135,6 +135,8 @@ public class Player : MonoBehaviour
         left = map.GetTile(new Vector3Int(x - 1, y, 0));
         down = map.GetTile(new Vector3Int(x, y - 1, 0));
         right = map.GetTile(new Vector3Int(x + 1, y, 0));
+        transform.localScale = new Vector2(0.5f, 0.5f);
+
         CountdownTimer.TimeRemaining = CountdownTimer.MaxTime;
         CountdownTimer.SecondCounter = 0;
     }
