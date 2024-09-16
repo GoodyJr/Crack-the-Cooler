@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     int x;
     int y;
     int direction;
+    public GameObject DeathTimer;
+    public CountdownTimer CountdownTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
         left = map.GetTile(new Vector3Int(x - 1, y, 0));
         down = map.GetTile(new Vector3Int(x, y - 1, 0));
         right = map.GetTile(new Vector3Int(x + 1, y, 0));
+        CountdownTimer = DeathTimer.GetComponent<CountdownTimer>();
     }
 
     // Update is called once per frame
@@ -54,14 +57,7 @@ public class Player : MonoBehaviour
                 down = map.GetTile(new Vector3Int(x, y - 1, 0));
                 right = map.GetTile(new Vector3Int(x + 1, y, 0));
                 if (map.GetTile(new Vector3Int(x, y, 0)) == trapdoor) {
-                    transform.position = start;
-                    position = start;
-                    x = (int)transform.position.x;
-                    y = (int)transform.position.y;
-                    up = map.GetTile(new Vector3Int(x, y + 1, 0));
-                    left = map.GetTile(new Vector3Int(x - 1, y, 0));
-                    down = map.GetTile(new Vector3Int(x, y - 1, 0));
-                    right = map.GetTile(new Vector3Int(x + 1, y, 0));
+                    Death();
                 }
                 else if (map.GetTile(new Vector3Int(x, y, 0)) == slippery) {
                     if (direction == 1 && up != wall) {
@@ -121,5 +117,25 @@ public class Player : MonoBehaviour
             direction = 4;
             transform.localScale = new Vector2(0.5f, 0.5f);
         }
+
+
+        if (CountdownTimer.TimeRemaining <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        transform.position = start;
+        position = start;
+        x = (int)transform.position.x;
+        y = (int)transform.position.y;
+        up = map.GetTile(new Vector3Int(x, y + 1, 0));
+        left = map.GetTile(new Vector3Int(x - 1, y, 0));
+        down = map.GetTile(new Vector3Int(x, y - 1, 0));
+        right = map.GetTile(new Vector3Int(x + 1, y, 0));
+        CountdownTimer.TimeRemaining = CountdownTimer.MaxTime;
+        CountdownTimer.SecondCounter = 0;
     }
 }
