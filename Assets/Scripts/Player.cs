@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public TileBase slippery;
     public GameObject deathTimer;
     public CountdownTimer countdownTimer;
+
+    public GameObject Victory;
+    public VictoryScript VictoryScript;
+
     Rigidbody2D rb;
     Vector2 position;
     Vector2 start;
@@ -23,7 +27,7 @@ public class Player : MonoBehaviour
     float speed = 3.0f;
     float gridSize = 1.0f;
     float koyote = 0.1f;
-    bool moving = false;
+    public bool moving = false;
     int x;
     int y;
     int direction;
@@ -41,6 +45,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         countdownTimer = deathTimer.GetComponent<CountdownTimer>();
+        VictoryScript = Victory.GetComponent<VictoryScript>();
         position = new Vector2(transform.position.x, transform.position.y);
         start = position;
         x = (int)transform.position.x;
@@ -102,7 +107,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && up != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && up != wall && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(0, speed);
             position += new Vector2(0, gridSize);
             time = 0;
@@ -112,7 +117,7 @@ public class Player : MonoBehaviour
             next = false;
             upNext = false;
         }
-        else if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && left != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && left != wall && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(-1*speed, 0);
             position += new Vector2(-1*gridSize, 0);
             time = 0;
@@ -123,7 +128,7 @@ public class Player : MonoBehaviour
             leftNext = false;
             transform.localScale = new Vector2(-0.5f, 0.5f);
         }
-        else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && down != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && down != wall && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(0, -1*speed);
             position += new Vector2(0, -1*gridSize);
             time = 0;
@@ -133,7 +138,7 @@ public class Player : MonoBehaviour
             next = false;
             downNext = false;
         }
-        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && right != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && right != wall && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(speed, 0);
             position += new Vector2(gridSize, 0);
             time = 0;

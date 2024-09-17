@@ -3120,11 +3120,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.size
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[0]
-      value: Welcome to Crack The Cooler! (E to Continue)
+      value: Hi! You're on the next scene!
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[1]
@@ -3568,7 +3568,7 @@ Transform:
   m_GameObject: {fileID: 1752765152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
