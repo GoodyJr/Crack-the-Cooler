@@ -3172,6 +3172,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &703396628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6891103697079088408, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+  m_PrefabInstance: {fileID: 240226158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &928690210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,6 +3275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c393dbdd6a55ca41a71b2eb660ec194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialog: {fileID: 703396628}
   map: {fileID: 117403489}
   wall: {fileID: 11400000, guid: 59ea41aeb3e96574da4e7555d7d60136, type: 2}
   trapdoor: {fileID: 11400000, guid: 3fa1913b235f4c34db8ed6a2dfce27df, type: 2}
