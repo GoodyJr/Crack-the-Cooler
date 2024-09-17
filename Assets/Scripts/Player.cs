@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     int x;
     int y;
     int direction;
+    bool first = false;
     bool next = false;
     bool nextDown = false;
     bool upNext = false;
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     {
         if (moving) {
             time += Time.deltaTime;
+            first = false;
             if (time >= gridSize / speed) {
                 moving = false;
                 rb.velocity = new Vector2(0, 0);
@@ -106,6 +108,7 @@ public class Player : MonoBehaviour
             time = 0;
             moving = true;
             direction = 1;
+            first = true;
             next = false;
             upNext = false;
         }
@@ -115,6 +118,7 @@ public class Player : MonoBehaviour
             time = 0;
             moving = true;
             direction = 2;
+            first = true;
             next = false;
             leftNext = false;
             transform.localScale = new Vector2(-0.5f, 0.5f);
@@ -125,6 +129,7 @@ public class Player : MonoBehaviour
             time = 0;
             moving = true;
             direction = 3;
+            first = true;
             next = false;
             downNext = false;
         }
@@ -134,11 +139,12 @@ public class Player : MonoBehaviour
             time = 0;
             moving = true;
             direction = 4;
+            first = true;
             next = false;
             rightNext = false;
             transform.localScale = new Vector2(0.5f, 0.5f);
         }
-        if (!next) {
+        if (!first && !next && !dialog.activeSelf) {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
                 next = true;
                 upNext = true;
