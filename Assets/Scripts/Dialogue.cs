@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
-    public string[] lines;
     public float textspeed;
+    public string[] lines;
+    public string[] profileImage;
+    public UnityEngine.UI.Image image;
+    public Sprite Wren;
+    public Sprite Dusty;
 
     private int index;
 
@@ -33,6 +39,7 @@ public class Dialogue : MonoBehaviour
                 textComponent.text = lines[index];
             }
         }
+
     }
 
     void StartDialogue()
@@ -43,7 +50,24 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        foreach (char c in lines[index].ToCharArray())
+        //set character image
+        if (int.Parse(profileImage[index]) == 1)
+        {
+            image.color = Color.white;
+            image.sprite = Wren;
+        }
+        else if (int.Parse(profileImage[index]) == 2)
+        {
+            image.color = Color.white;
+            image.sprite = Dusty;
+        }
+        else if (int.Parse(profileImage[index]) == 0)
+        {
+            image.color = new Color(255, 255, 255, 0);
+        }
+
+        //types lines
+            foreach (char c in lines[index].ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textspeed);
