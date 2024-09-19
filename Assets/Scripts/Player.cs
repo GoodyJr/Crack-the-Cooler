@@ -7,11 +7,16 @@ public class Player : MonoBehaviour
 {
     public GameObject dialog;
     public Tilemap map;
-    public TileBase wall;
+    public TileBase wall0;
+    public TileBase wall1;
+    public TileBase wall2;
+    public TileBase wall3;
     public TileBase trapdoor;
     public TileBase slippery;
     public GameObject deathTimer;
     public CountdownTimer countdownTimer;
+    public GameObject Victory;
+    public VictoryScript VictoryScript;
     Rigidbody2D rb;
     Vector2 position;
     Vector2 start;
@@ -19,11 +24,12 @@ public class Player : MonoBehaviour
     TileBase left;
     TileBase down;
     TileBase right;
+    ArrayList wall = new ArrayList();
     float time = 0.0f;
     float speed = 3.0f;
     float gridSize = 1.0f;
     float koyote = 0.1f;
-    bool moving = false;
+    public bool moving = false;
     int x;
     int y;
     int direction;
@@ -41,6 +47,11 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         countdownTimer = deathTimer.GetComponent<CountdownTimer>();
+        VictoryScript = Victory.GetComponent<VictoryScript>();
+        wall.Add(wall0);
+        wall.Add(wall1);
+        wall.Add(wall2);
+        wall.Add(wall3);
         position = new Vector2(transform.position.x, transform.position.y);
         start = position;
         x = (int)transform.position.x;
@@ -75,25 +86,25 @@ public class Player : MonoBehaviour
                     Death();
                 }
                 else if (map.GetTile(new Vector3Int(x, y, 0)) == slippery) {
-                    if (direction == 1 && up != wall) {
+                    if (direction == 1 && !wall.Contains(up)) {
                         moving = true;
                         time = 0;
                         rb.velocity = new Vector2(0, speed);
                         position += new Vector2(0, gridSize);
                     }
-                    if (direction == 2 && left != wall) {
+                    if (direction == 2 && !wall.Contains(left)) {
                         moving = true;
                         time = 0;
                         rb.velocity = new Vector2(-1*speed, 0);
                         position += new Vector2(-1*gridSize, 0);
                     }
-                    if (direction == 3 && down != wall) {
+                    if (direction == 3 && !wall.Contains(down)) {
                         moving = true;
                         time = 0;
                         rb.velocity = new Vector2(0, -1*speed);
                         position += new Vector2(0, -1*gridSize);
                     }
-                    if (direction == 4 && right != wall) {
+                    if (direction == 4 && !wall.Contains(right)) {
                         moving = true;
                         time = 0;
                         rb.velocity = new Vector2(speed, 0);
@@ -102,7 +113,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && up != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(0, speed);
             position += new Vector2(0, gridSize);
             time = 0;
@@ -112,7 +123,7 @@ public class Player : MonoBehaviour
             next = false;
             upNext = false;
         }
-        else if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && left != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(-1*speed, 0);
             position += new Vector2(-1*gridSize, 0);
             time = 0;
@@ -123,7 +134,7 @@ public class Player : MonoBehaviour
             leftNext = false;
             transform.localScale = new Vector2(-0.5f, 0.5f);
         }
-        else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && down != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(0, -1*speed);
             position += new Vector2(0, -1*gridSize);
             time = 0;
@@ -133,7 +144,7 @@ public class Player : MonoBehaviour
             next = false;
             downNext = false;
         }
-        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && right != wall && !dialog.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin) {
             rb.velocity = new Vector2(speed, 0);
             position += new Vector2(gridSize, 0);
             time = 0;
