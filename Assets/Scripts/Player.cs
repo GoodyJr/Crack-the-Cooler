@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     public TileBase wall3;
     public TileBase trapdoor;
     public TileBase slippery;
+    public TileBase letter0;
+    public TileBase letter1;
+    public TileBase letter2;
+    public TileBase letter3;
     public GameObject deathTimer;
     public CountdownTimer countdownTimer;
     public GameObject Victory;
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour
     TileBase down;
     TileBase right;
     ArrayList wall = new ArrayList();
+    ArrayList letter = new ArrayList();
     float time = 0.0f;
     float speed = 3.0f;
     float gridSize = 1.0f;
@@ -41,6 +46,9 @@ public class Player : MonoBehaviour
     bool downNext = false;
     bool rightNext = false;
     int directionNext = 0;
+    int firstLetter;
+    int secondLetter;
+    int thirdLetter;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +60,10 @@ public class Player : MonoBehaviour
         wall.Add(wall1);
         wall.Add(wall2);
         wall.Add(wall3);
+        letter.Add(letter0);
+        letter.Add(letter1);
+        letter.Add(letter2);
+        letter.Add(letter3);
         position = new Vector2(transform.position.x, transform.position.y);
         start = position;
         x = (int)transform.position.x;
@@ -110,6 +122,11 @@ public class Player : MonoBehaviour
                         rb.velocity = new Vector2(speed, 0);
                         position += new Vector2(gridSize, 0);
                     }
+                }
+                else if (letter.Contains(map.GetTile(new Vector3Int(x, y, 0)))) {
+                    firstLetter = Random.Range(1, 27);
+                    secondLetter = Random.Range(1, 27);
+                    thirdLetter = Random.Range(1, 27);
                 }
             }
         }
