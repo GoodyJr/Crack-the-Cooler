@@ -2191,29 +2191,61 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: Image
+      value: 
+      objectReference: {fileID: 1535927886}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: imageTransform
+      value: 
+      objectReference: {fileID: 1535927888}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.size
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[0]
-      value: Welcome to Crack The Cooler! (E to Continue)
+      value: Made it?
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[1]
-      value: Move around using WASD or the arrow keys
+      value: Made it. What can I expect from this room?
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[2]
-      value: You can walk on GRAVEL TILES, but are stopped by ICE CUBES
+      value: Looks like that room's filled with trapdoors, definitely don't want
+        to step on those. Learned that one the hard way.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[3]
-      value: ALGAE TILES are slippery, and you will die if you step on a TRAPDOOR
-        TILE
+      value: I'll try not to.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[4]
-      value: Have fun!
+      value: (Avoid trapdoors, you will lose if you step on one.)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[4]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6129699366231706388, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: m_Name
@@ -2373,6 +2405,16 @@ Transform:
   - {fileID: 117403487}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1535927886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7636439581209021076, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+  m_PrefabInstance: {fileID: 240226158}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1535927888 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5435741459160457476, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+  m_PrefabInstance: {fileID: 240226158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1554184870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6904126649675307926, guid: 7b5137cb3a147e84aa986f41a6fa953e, type: 3}

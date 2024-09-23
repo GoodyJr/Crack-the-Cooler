@@ -3230,28 +3230,77 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[0]
-      value: Welcome to Crack The Cooler! (E to Continue)
+      value: Wow, this place is like a maze.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[1]
-      value: Move around using WASD or the arrow keys
+      value: Yeah, "World's most secure prison" and all that.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[2]
-      value: You can walk on GRAVEL TILES, but are stopped by ICE CUBES
+      value: Oh, which reminds me...
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[3]
-      value: ALGAE TILES are slippery, and you will die if you step on a TRAPDOOR
-        TILE
+      value: This place is crawling with cameras and sensors and that sort of thing,
+        you shouldn't stay in any one room for too long.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[4]
-      value: Have fun!
+      value: Get to the lift as quickly as possible, got it.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: lines.Array.data[5]
+      value: (Be wary of the timer, if it reaches zero before you finish the level,
+        you lose.)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: lines.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: lines.Array.data[7]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: lines.Array.data[8]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: lines.Array.data[9]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[5]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6129699366231706388, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: m_Name

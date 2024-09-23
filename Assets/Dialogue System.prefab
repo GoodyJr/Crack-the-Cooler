@@ -327,12 +327,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 3456692521596423200}
-  lines: []
   textspeed: 0.05
+  lines: []
   profileImage: []
   image: {fileID: 6602611054220501748}
   Wren: {fileID: 21300000, guid: ed9f1b8b86e5203459364e14eaf9e27c, type: 3}
   Dusty: {fileID: 21300000, guid: 6a21752a93812c64a83b533f4ee7c9c2, type: 3}
+  profileObject: {fileID: 7636439581209021076}
 --- !u!1 &7636439581209021076
 GameObject:
   m_ObjectHideFlags: 0
