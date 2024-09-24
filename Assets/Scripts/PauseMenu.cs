@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
 {
 
     [SerializeField] GameObject pauseMenu;
+    public GameObject wren;
+    Player player;
 
     public void pause()
     {
@@ -22,10 +24,14 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    void Start() {
+        player = wren.GetComponent<Player>();
+    }
+
     //Debug Stuff
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Space) && !player.letterOn)
         {
             Debug.Log("activate");
             pause();
