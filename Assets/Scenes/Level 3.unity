@@ -3156,24 +3156,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[0]
-      value: Welcome to Crack The Cooler! (E to Continue)
+      value: Did someone puke on the floor here?
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[1]
-      value: Move around using WASD or the arrow keys
+      value: Oh you must be in a room with algae, it makes the floor slippery so
+        you'll slide right across it.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[2]
-      value: You can walk on GRAVEL TILES, but are stopped by ICE CUBES
+      value: And that's part of the security system?
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[3]
-      value: ALGAE TILES are slippery, and you will die if you step on a TRAPDOOR
-        TILE
+      value: It's more dangerous than it sounds.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[4]
-      value: Have fun!
+      value: (If you step onto an algae tile, you will slide across it onto the next
+        tile.)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[4]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6129699366231706388, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: m_Name

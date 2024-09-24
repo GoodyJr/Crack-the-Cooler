@@ -14,6 +14,7 @@ public class Dialogue : MonoBehaviour
     public UnityEngine.UI.Image image;
     public Sprite Wren;
     public Sprite Dusty;
+    public GameObject profileObject;
 
     private int index;
 
@@ -69,6 +70,8 @@ public class Dialogue : MonoBehaviour
         //types lines
             foreach (char c in lines[index].ToCharArray())
         {
+            profileObject.transform.eulerAngles = new Vector3(0, 0, Random.Range(-10, 10));
+
             textComponent.text += c;
             yield return new WaitForSeconds(textspeed);
         }
