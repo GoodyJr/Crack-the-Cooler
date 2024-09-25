@@ -107,10 +107,18 @@ MonoBehaviour:
   wall3: {fileID: 11400000, guid: b155d3fc80ed8874abe2160ec416fc54, type: 2}
   trapdoor: {fileID: 11400000, guid: 3fa1913b235f4c34db8ed6a2dfce27df, type: 2}
   slippery: {fileID: 11400000, guid: dc6759ccf593b8e4ba1dbbed80a306aa, type: 2}
+  letter0: {fileID: 11400000, guid: db43c291ed09e8d43ac97a3f00ec55e3, type: 2}
+  letter1: {fileID: 11400000, guid: ae0ced562d351be418554c8552c16609, type: 2}
+  letter2: {fileID: 11400000, guid: c8e914a827b7c1547a76ae5c6523c3d5, type: 2}
+  letter3: {fileID: 11400000, guid: ee290c7131ab9404fb749c3f056f17e6, type: 2}
   deathTimer: {fileID: 0}
   countdownTimer: {fileID: 0}
   Victory: {fileID: 0}
   VictoryScript: {fileID: 0}
+  letters: {fileID: 2973855620018807619, guid: 86ceb6c9d78552f4697a6bb2475ee921, type: 3}
+  letterOne: {fileID: 0}
+  letterTwo: {fileID: 0}
+  letterThree: {fileID: 0}
   moving: 0
 --- !u!50 &7902897206367147691
 Rigidbody2D:
