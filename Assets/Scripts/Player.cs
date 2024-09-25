@@ -243,6 +243,12 @@ public class Player : MonoBehaviour
         if (countdownTimer.TimeRemaining <= 0) {
             Death();
         }
+        //lift animation
+        if(VictoryScript.liftTime > 0)
+        {
+            transform.position += new Vector3(0, 2 * Time.deltaTime, 0);
+        }
+
     }
 
     public void Death() {
