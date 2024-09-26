@@ -3586,6 +3586,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 838228000126000527, guid: 7b5137cb3a147e84aa986f41a6fa953e, type: 3}
+      propertyPath: MaxTime
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 838228000126000527, guid: 7b5137cb3a147e84aa986f41a6fa953e, type: 3}
       propertyPath: victory
       value: 
       objectReference: {fileID: 1755454397}
@@ -3774,6 +3778,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 8872772665633144111, guid: 99a535a863e65054e88ee0ce9c2009ab, type: 3}
+      propertyPath: wren
+      value: 
+      objectReference: {fileID: 967172869}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
