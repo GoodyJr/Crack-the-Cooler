@@ -111,6 +111,7 @@ MonoBehaviour:
   letter1: {fileID: 11400000, guid: ae0ced562d351be418554c8552c16609, type: 2}
   letter2: {fileID: 11400000, guid: c8e914a827b7c1547a76ae5c6523c3d5, type: 2}
   letter3: {fileID: 11400000, guid: ee290c7131ab9404fb749c3f056f17e6, type: 2}
+  encounter: {fileID: 11400000, guid: 8ac751e534d8a414587ea520d6fe8cb4, type: 2}
   deathTimer: {fileID: 0}
   countdownTimer: {fileID: 0}
   Victory: {fileID: 0}
@@ -119,7 +120,10 @@ MonoBehaviour:
   letterOne: {fileID: 0}
   letterTwo: {fileID: 0}
   letterThree: {fileID: 0}
+  dodgeArrow: {fileID: 0}
+  dodgeCircle: {fileID: 0}
   moving: 0
+  letterOn: 0
 --- !u!50 &7902897206367147691
 Rigidbody2D:
   serializedVersion: 4

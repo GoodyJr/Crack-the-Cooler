@@ -516,6 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 7025321939926133904}
+  wren: {fileID: 0}
 --- !u!1 &8296664484088219731
 GameObject:
   m_ObjectHideFlags: 0
