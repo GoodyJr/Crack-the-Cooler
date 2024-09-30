@@ -13,7 +13,6 @@ public class PauseMenu : MonoBehaviour
 
     public void pause()
     {
-        Debug.Log("button pressed");
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -28,18 +27,16 @@ public class PauseMenu : MonoBehaviour
         player = wren.GetComponent<Player>();
     }
 
-    //Debug Stuff
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !player.letterOn)
+        if (Input.GetKeyDown(KeyCode.Escape) && !player.letterOn && !pauseMenu.activeInHierarchy)
         {
-            Debug.Log("activate");
             pause();
         }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        else if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeInHierarchy)
         {
-            Debug.Log("YouClicked!");
+            resume();
         }
+
     }
 }
