@@ -22,6 +22,11 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
     }
+    public void home()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Title Screen");
+    }
 
     void Start() {
         player = wren.GetComponent<Player>();
