@@ -66,17 +66,25 @@ public class Player : MonoBehaviour
     bool three;
     string upperCase = "QWERTYUIOPASDFGHJKLZXCVBNM";
     string lowerCase = "qwertyuiopasdfghjklzxcvbnm";
+    bool letterUp = false;
+    bool letterLeft = false;
+    bool letterDown = false;
+    bool letterRight = false;
 
     public TileBase encounter;
     public GameObject dodgeArrow;
     public GameObject dodgeCircle;
     ArrayList path = new ArrayList();
-    Vector2 dodgeCircleSize = new Vector2(200, 200);
+    Vector2 dodgeCircleSize = new Vector2(4, 4);
     bool encounterOn = false;
     float dodgeTimer = 0.0f;
     int dodge;
     float dodgeStart = 0.9f;
     float dodgeStop = 1.1f;
+    bool encounterUp = false;
+    bool encounterLeft = false;
+    bool encounterDown = false;
+    bool encounterRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -101,13 +109,12 @@ public class Player : MonoBehaviour
         down = map.GetTile(new Vector3Int(x, y - 1, 0));
         right = map.GetTile(new Vector3Int(x + 1, y, 0));
         letters.SetActive(false);
-        //dodgeArrow.SetActive(false);
+        dodgeArrow.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(encounterOn);
         if (letterOn) {
             if (!one) {
                 if (Input.inputString == letterOne.text || Input.inputString == lowerCase[firstLetter].ToString()) {
@@ -142,6 +149,18 @@ public class Player : MonoBehaviour
             else if (!three) {
                 if (Input.inputString == letterThree.text || Input.inputString == lowerCase[thirdLetter].ToString()) {
                     three = true;
+                    if (letterThree.text == "W") {
+                        letterUp = true;
+                    }
+                    else if (letterThree.text == "A") {
+                        letterLeft = true;
+                    }
+                    else if (letterThree.text == "S") {
+                        letterDown = true;
+                    }
+                    else if (letterThree.text == "D") {
+                        letterRight = true;
+                    }
                 }
                 else if (!string.IsNullOrEmpty(Input.inputString)) {
                     firstLetter = Random.Range(0, 26);
@@ -240,28 +259,30 @@ public class Player : MonoBehaviour
                         rightNext = false;
                         dodgeTimer = 0;
                         dodge = Random.Range(1,5);
+                        dodgeCircle.transform.localScale = dodgeCircleSize;
+                        dodgeArrow.SetActive(true);
                     }
                 }
             }
             else if (encounterOn) {
                 dodgeTimer += Time.deltaTime;
+                dodgeCircle.transform.localScale -= new Vector3(2 * Time.deltaTime, 2 * Time.deltaTime, 0);
                 if (dodge == 1) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, -90, 0);
+                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
                 else if (dodge == 2) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 180);
                 }
                 else if (dodge == 3) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, 90, 0);
+                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, -90);
                 }
                 else if (dodge == 4) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, 180, 0);
+                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 0);
                 }
-                dodgeCircle.transform.localScale = dodgeCircleSize;
-                dodgeArrow.SetActive(true);
                 if (dodgeTimer > dodgeStop) {
                     dodgeTimer = 0;
                     dodge = Random.Range(1,5);
+                    dodgeCircle.transform.localScale = dodgeCircleSize;
                     if (down == trapdoor) {
                         direction = 1;
                     }
@@ -296,28 +317,41 @@ public class Player : MonoBehaviour
                 else if (dodgeTimer >= dodgeStart && ((dodge == 1 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))) || (dodge == 2 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))) || (dodge == 3 && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))) || (dodge == 4 && (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))))) {
                     dodgeTimer = 0;
                     encounterOn = false;
+                    dodgeArrow.SetActive(false);
+                    if (dodge == 1) {
+                        encounterUp = true;
+                    }
+                    else if (dodge == 2) {
+                        encounterLeft = true;
+                    }
+                    else if (dodge == 3) {
+                        encounterDown = true;
+                    }
+                    else if (dodge == 4) {
+                        encounterRight = true;
+                    }
                 }
             }
-            else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.W) && !letterUp) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin) {
                 path.Add(1);
                 MoveUp();
             }
-            else if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.A) && !letterLeft) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin) {
                 path.Add(2);
                 transform.localScale = new Vector2(-0.5f, 0.5f);
                 MoveLeft();
             }
-            else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.S) && !letterDown) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin) {
                 path.Add(3);
                 MoveDown();
             }
-            else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.D) && !letterRight) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin) {
                 path.Add(4);
                 transform.localScale = new Vector2(0.5f, 0.5f);
                 MoveRight();
             }
             if (!first && !next && !dialog.activeSelf && !letterOn && !encounterOn) {
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
+                if ((Input.GetKeyDown(KeyCode.W) && !letterUp && !encounterUp) || Input.GetKeyDown(KeyCode.UpArrow)) {
                     next = true;
                     upNext = true;
                     leftNext = false;
@@ -325,7 +359,7 @@ public class Player : MonoBehaviour
                     rightNext = false;
                     directionNext = 1;
                 }
-                else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
+                else if ((Input.GetKeyDown(KeyCode.A) && !letterLeft && !encounterLeft) || Input.GetKeyDown(KeyCode.LeftArrow)) {
                     next = true;
                     upNext = false;
                     leftNext = true;
@@ -333,7 +367,7 @@ public class Player : MonoBehaviour
                     rightNext = false;
                     directionNext = 2;
                 }
-                else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
+                else if ((Input.GetKeyDown(KeyCode.S) && !letterDown && !encounterDown) || Input.GetKeyDown(KeyCode.DownArrow)) {
                     next = true;
                     upNext = false;
                     leftNext = false;
@@ -341,7 +375,7 @@ public class Player : MonoBehaviour
                     rightNext = false;
                     directionNext = 3;
                 }
-                else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
+                else if ((Input.GetKeyDown(KeyCode.D) && !letterRight && !encounterRight) || Input.GetKeyDown(KeyCode.RightArrow)) {
                     next = true;
                     upNext = false;
                     leftNext = false;
@@ -350,7 +384,7 @@ public class Player : MonoBehaviour
                     directionNext = 4;
                 }
                 if (!nextDown) {
-                    if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 1)) {
+                    if (((Input.GetKey(KeyCode.W) && !letterUp && !encounterUp) || Input.GetKey(KeyCode.UpArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 1)) {
                         nextDown = true;
                         upNext = true;
                         leftNext = false;
@@ -358,7 +392,7 @@ public class Player : MonoBehaviour
                         rightNext = false;
                         directionNext = 1;
                     }
-                    else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 2)) {
+                    else if (((Input.GetKey(KeyCode.A) && !letterLeft && !encounterLeft) || Input.GetKey(KeyCode.LeftArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 2)) {
                         nextDown = true;
                         upNext = false;
                         leftNext = true;
@@ -366,7 +400,7 @@ public class Player : MonoBehaviour
                         rightNext = false;
                         directionNext = 2;
                     }
-                    else if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 3)) {
+                    else if (((Input.GetKey(KeyCode.S) && !letterDown && !encounterDown) || Input.GetKey(KeyCode.DownArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 3)) {
                         nextDown = true;
                         upNext = false;
                         leftNext = false;
@@ -374,7 +408,7 @@ public class Player : MonoBehaviour
                         rightNext = false;
                         directionNext = 3;
                     }
-                    else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 4)) {
+                    else if (((Input.GetKey(KeyCode.D) && !letterRight && !encounterRight) || Input.GetKey(KeyCode.RightArrow)) && time >= gridSize * (1 - koyote) / speed && (directionNext == 0 || directionNext == 4)) {
                         nextDown = true;
                         upNext = false;
                         leftNext = false;
@@ -384,6 +418,30 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+        }
+        if (letterUp && Input.GetKeyUp(KeyCode.W)) {
+            letterUp = false;
+        }
+        else if (letterLeft && Input.GetKeyUp(KeyCode.A)) {
+            letterLeft = false;
+        }
+        else if (letterDown && Input.GetKeyUp(KeyCode.S)) {
+            letterDown = false;
+        }
+        else if (letterRight && Input.GetKeyUp(KeyCode.D)) {
+            letterRight = false;
+        }
+        else if (encounterUp && (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))) {
+            letterUp = false;
+        }
+        else if (encounterLeft && (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))) {
+            letterLeft = false;
+        }
+        else if (encounterDown && (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))) {
+            letterDown = false;
+        }
+        else if (encounterRight && (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))) {
+            letterRight = false;
         }
         if (countdownTimer.TimeRemaining <= 0) {
             Death();
@@ -445,6 +503,7 @@ public class Player : MonoBehaviour
         letterOne.gameObject.SetActive(true);
         letterTwo.gameObject.SetActive(true);
         letterOn = false;
+        dodgeArrow.SetActive(false);
         dodgeTimer = 0;
         encounterOn = false;
         transform.position = start;
