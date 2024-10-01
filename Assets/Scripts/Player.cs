@@ -10,18 +10,35 @@ public class Player : MonoBehaviour
 {
     public GameObject dialog;
     public Tilemap map;
+    public TileBase wall0;
+    public TileBase wall1;
+    public TileBase wall2;
+    public TileBase wall3;
+    public TileBase trapdoor;
+    public TileBase slippery;
+    public TileBase letter0;
+    public TileBase letter1;
+    public TileBase letter2;
+    public TileBase letter3;
     public GameObject deathTimer;
     public CountdownTimer countdownTimer;
     public GameObject Victory;
     public VictoryScript VictoryScript;
+    public GameObject letters;
+    public TextMeshProUGUI letterOne;
+    public TextMeshProUGUI letterTwo;
+    public TextMeshProUGUI letterThree;
     public bool moving = false;
+    public bool letterOn;
     Rigidbody2D rb;
+    Vector2 position;
+    Vector2 start;
     TileBase up;
     TileBase left;
     TileBase down;
     TileBase right;
-    Vector2 position;
-    Vector2 start;
+    ArrayList wall = new ArrayList();
+    ArrayList letter = new ArrayList();
     float time = 0.0f;
     float speed = 3.0f;
     float gridSize = 1.0f;
@@ -37,27 +54,6 @@ public class Player : MonoBehaviour
     bool downNext = false;
     bool rightNext = false;
     int directionNext = 0;
-
-    public TileBase wall0;
-    public TileBase wall1;
-    public TileBase wall2;
-    public TileBase wall3;
-    ArrayList wall = new ArrayList();
-
-    public TileBase trapdoor;
-
-    public TileBase slippery;
-
-    public TileBase letter0;
-    public TileBase letter1;
-    public TileBase letter2;
-    public TileBase letter3;
-    public GameObject letters;
-    public TextMeshProUGUI letterOne;
-    public TextMeshProUGUI letterTwo;
-    public TextMeshProUGUI letterThree;
-    public bool letterOn;
-    ArrayList letter = new ArrayList();
     int firstLetter;
     int secondLetter;
     int thirdLetter;
@@ -66,17 +62,6 @@ public class Player : MonoBehaviour
     bool three;
     string upperCase = "QWERTYUIOPASDFGHJKLZXCVBNM";
     string lowerCase = "qwertyuiopasdfghjklzxcvbnm";
-
-    public TileBase encounter;
-    public GameObject dodgeArrow;
-    public GameObject dodgeCircle;
-    ArrayList path = new ArrayList();
-    Vector2 dodgeCircleSize = new Vector2(200, 200);
-    bool encounterOn = false;
-    float dodgeTimer = 0.0f;
-    int dodge;
-    float dodgeStart = 0.9f;
-    float dodgeStop = 1.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -101,20 +86,20 @@ public class Player : MonoBehaviour
         down = map.GetTile(new Vector3Int(x, y - 1, 0));
         right = map.GetTile(new Vector3Int(x + 1, y, 0));
         letters.SetActive(false);
-        //dodgeArrow.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(encounterOn);
         if (letterOn) {
             if (!one) {
                 if (Input.inputString == letterOne.text || Input.inputString == lowerCase[firstLetter].ToString()) {
+                    Debug.Log("First Success");
                     one = true;
                     letterOne.gameObject.SetActive(false);
                 }
                 else if (!string.IsNullOrEmpty(Input.inputString)) {
+                    Debug.Log("First Fail");
                     firstLetter = Random.Range(0, 26);
                     secondLetter = Random.Range(0, 26);
                     thirdLetter = Random.Range(0, 26);
@@ -125,10 +110,12 @@ public class Player : MonoBehaviour
             }
             else if (!two) {
                 if (Input.inputString == letterTwo.text || Input.inputString == lowerCase[secondLetter].ToString()) {
+                    Debug.Log("Second Success");
                     two = true;
                     letterTwo.gameObject.SetActive(false);
                 }
                 else if (!string.IsNullOrEmpty(Input.inputString)) {
+                    Debug.Log("Second Fail");
                     firstLetter = Random.Range(0, 26);
                     secondLetter = Random.Range(0, 26);
                     thirdLetter = Random.Range(0, 26);
@@ -141,9 +128,11 @@ public class Player : MonoBehaviour
             }
             else if (!three) {
                 if (Input.inputString == letterThree.text || Input.inputString == lowerCase[thirdLetter].ToString()) {
+                    Debug.Log("Third Success");
                     three = true;
                 }
                 else if (!string.IsNullOrEmpty(Input.inputString)) {
+                    Debug.Log("Third Fail");
                     firstLetter = Random.Range(0, 26);
                     secondLetter = Random.Range(0, 26);
                     thirdLetter = Random.Range(0, 26);
@@ -229,94 +218,51 @@ public class Player : MonoBehaviour
                         downNext = false;
                         rightNext = false;
                     }
-                    else if (map.GetTile(new Vector3Int(x, y, 0)) == encounter) {
-                        time = 0;
-                        encounterOn = true;
-                        next = false;
-                        nextDown = false;
-                        upNext = false;
-                        leftNext = false;
-                        downNext = false;
-                        rightNext = false;
-                        dodgeTimer = 0;
-                        dodge = Random.Range(1,5);
-                    }
-                }
-            }
-            else if (encounterOn) {
-                dodgeTimer += Time.deltaTime;
-                if (dodge == 1) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, -90, 0);
-                }
-                else if (dodge == 2) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
-                }
-                else if (dodge == 3) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, 90, 0);
-                }
-                else if (dodge == 4) {
-                    dodgeArrow.transform.rotation = new Quaternion(0, 0, 180, 0);
-                }
-                dodgeCircle.transform.localScale = dodgeCircleSize;
-                dodgeArrow.SetActive(true);
-                if (dodgeTimer > dodgeStop) {
-                    dodgeTimer = 0;
-                    dodge = Random.Range(1,5);
-                    if (down == trapdoor) {
-                        direction = 1;
-                    }
-                    else if (right == trapdoor) {
-                        direction = 2;
-                    }
-                    else if (up == trapdoor) {
-                        direction = 3;
-                    }
-                    else if (left == trapdoor) {
-                        direction = 4;
-                    }
-                    else {
-                        direction = (int)path[path.Count - 1];
-                        path.RemoveAt(path.Count - 1);
-                    }
-                    if (direction == 1) {
-                        MoveDown();
-                    }
-                    if (direction == 2) {
-                        transform.localScale = new Vector2(-0.5f, 0.5f);
-                        MoveRight();
-                    }
-                    if (direction == 3) {
-                        MoveUp();
-                    }
-                    if (direction == 4) {
-                        transform.localScale = new Vector2(0.5f, 0.5f);
-                        MoveLeft();
-                    }
-                }
-                else if (dodgeTimer >= dodgeStart && ((dodge == 1 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))) || (dodge == 2 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))) || (dodge == 3 && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))) || (dodge == 4 && (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))))) {
-                    dodgeTimer = 0;
-                    encounterOn = false;
                 }
             }
             else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(1);
-                MoveUp();
+                rb.velocity = new Vector2(0, speed);
+                position += new Vector2(0, gridSize);
+                time = 0;
+                moving = true;
+                direction = 1;
+                first = true;
+                next = false;
+                upNext = false;
             }
             else if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(2);
+                rb.velocity = new Vector2(-1*speed, 0);
+                position += new Vector2(-1*gridSize, 0);
+                time = 0;
+                moving = true;
+                direction = 2;
+                first = true;
+                next = false;
+                leftNext = false;
                 transform.localScale = new Vector2(-0.5f, 0.5f);
-                MoveLeft();
             }
             else if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(3);
-                MoveDown();
+                rb.velocity = new Vector2(0, -1*speed);
+                position += new Vector2(0, -1*gridSize);
+                time = 0;
+                moving = true;
+                direction = 3;
+                first = true;
+                next = false;
+                downNext = false;
             }
             else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(4);
+                rb.velocity = new Vector2(speed, 0);
+                position += new Vector2(gridSize, 0);
+                time = 0;
+                moving = true;
+                direction = 4;
+                first = true;
+                next = false;
+                rightNext = false;
                 transform.localScale = new Vector2(0.5f, 0.5f);
-                MoveRight();
             }
-            if (!first && !next && !dialog.activeSelf && !letterOn && !encounterOn) {
+            if (!first && !next && !dialog.activeSelf && !letterOn) {
                 if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
                     next = true;
                     upNext = true;
@@ -396,57 +342,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void MoveUp() {
-        rb.velocity = new Vector2(0, speed);
-        position += new Vector2(0, gridSize);
-        time = 0;
-        moving = true;
-        direction = 1;
-        first = true;
-        next = false;
-        upNext = false;
-    }
-
-    void MoveLeft() {
-        rb.velocity = new Vector2(-1*speed, 0);
-        position += new Vector2(-1*gridSize, 0);
-        time = 0;
-        moving = true;
-        direction = 2;
-        first = true;
-        next = false;
-        leftNext = false;
-    }
-
-    void MoveDown() {
-        rb.velocity = new Vector2(0, -1*speed);
-        position += new Vector2(0, -1*gridSize);
-        time = 0;
-        moving = true;
-        direction = 3;
-        first = true;
-        next = false;
-        downNext = false;
-    }
-
-    void MoveRight() {
-        rb.velocity = new Vector2(speed, 0);
-        position += new Vector2(gridSize, 0);
-        time = 0;
-        moving = true;
-        direction = 4;
-        first = true;
-        next = false;
-        rightNext = false;
-    }
-
     void Death() {
-        letters.SetActive(false);
-        letterOne.gameObject.SetActive(true);
-        letterTwo.gameObject.SetActive(true);
-        letterOn = false;
-        dodgeTimer = 0;
-        encounterOn = false;
         transform.position = start;
         position = start;
         x = (int)transform.position.x;
@@ -458,5 +354,9 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector2(0.5f, 0.5f);
         countdownTimer.TimeRemaining = countdownTimer.MaxTime;
         countdownTimer.SecondCounter = 0;
+        letters.SetActive(false);
+        letterOne.gameObject.SetActive(true);
+        letterTwo.gameObject.SetActive(true);
+        letterOn = false;
     }
 }
