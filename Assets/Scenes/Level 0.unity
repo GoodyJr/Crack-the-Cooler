@@ -2202,6 +2202,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86ceb6c9d78552f4697a6bb2475ee921, type: 3}
+--- !u!1 &1157887043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973855620018807619, guid: 86ceb6c9d78552f4697a6bb2475ee921, type: 3}
+  m_PrefabInstance: {fileID: 1157887042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1274720042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,6 +2344,10 @@ PrefabInstance:
       propertyPath: Victory
       value: 
       objectReference: {fileID: 1435113799}
+    - target: {fileID: 2497138104869160276, guid: b25f710d22fc3874580030e5a33d135a, type: 3}
+      propertyPath: letters
+      value: 
+      objectReference: {fileID: 1157887043}
     - target: {fileID: 2497138104869160276, guid: b25f710d22fc3874580030e5a33d135a, type: 3}
       propertyPath: letterOne
       value: 

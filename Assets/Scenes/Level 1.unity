@@ -2987,6 +2987,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1239527243}
     - target: {fileID: 2497138104869160276, guid: b25f710d22fc3874580030e5a33d135a, type: 3}
+      propertyPath: letters
+      value: 
+      objectReference: {fileID: 1649021347}
+    - target: {fileID: 2497138104869160276, guid: b25f710d22fc3874580030e5a33d135a, type: 3}
       propertyPath: letterOne
       value: 
       objectReference: {fileID: 1649021346}
@@ -3742,6 +3746,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1649021347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973855620018807619, guid: 86ceb6c9d78552f4697a6bb2475ee921, type: 3}
+  m_PrefabInstance: {fileID: 1649021343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2079291801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6891103697079088408, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
