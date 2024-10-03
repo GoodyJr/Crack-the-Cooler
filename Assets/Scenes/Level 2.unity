@@ -2072,7 +2072,7 @@ PrefabInstance:
       objectReference: {fileID: 1535927888}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[0]
@@ -2093,11 +2093,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[4]
-      value: (Avoid trapdoors, you will lose if you step on one.)
+      value: (If you forget what a tile does, you can check any time in the pause
+        menu.)
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: profileImage.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: profileImage.Array.data[0]
