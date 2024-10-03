@@ -74,6 +74,8 @@ public class Player : MonoBehaviour
     public TileBase encounter;
     public GameObject dodgeArrow;
     public GameObject dodgeCircle;
+    GameObject guard;
+    GameObject guardChild;
     ArrayList path = new ArrayList();
     Vector2 dodgeCircleSize = new Vector2(4, 4);
     bool encounterOn = false;
@@ -85,11 +87,16 @@ public class Player : MonoBehaviour
     bool encounterLeft = false;
     bool encounterDown = false;
     bool encounterRight = false;
+    int currentDirection;
+    int nextDirection;
+    int modifier;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        guard = transform.GetChild(0).gameObject;
+        guardChild = guard.transform.GetChild(0).gameObject;
         countdownTimer = deathTimer.GetComponent<CountdownTimer>();
         VictoryScript = Victory.GetComponent<VictoryScript>();
         wall.Add(wall0);
@@ -110,6 +117,7 @@ public class Player : MonoBehaviour
         right = map.GetTile(new Vector3Int(x + 1, y, 0));
         letters.SetActive(false);
         dodgeArrow.SetActive(false);
+        guard.SetActive(false);
     }
 
     // Update is called once per frame
@@ -186,6 +194,10 @@ public class Player : MonoBehaviour
             if (moving) {
                 time += Time.deltaTime;
                 first = false;
+                if (encounterOn) {
+                    guard.transform.Rotate(0, 0, 90 * Time.deltaTime * speed * modifier);
+                    guardChild.transform.Rotate(0, 0, 90 * Time.deltaTime * speed * modifier * -1);
+                }
                 if (time >= gridSize / speed) {
                     moving = false;
                     rb.velocity = new Vector2(0, 0);
@@ -260,56 +272,98 @@ public class Player : MonoBehaviour
                         dodgeTimer = 0;
                         dodge = Random.Range(1,5);
                         dodgeCircle.transform.localScale = dodgeCircleSize;
+                        if (direction == 1) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, 90);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, -90);
+                        }
+                        else if (direction == 2) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, 180);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 180);
+                        }
+                        else if (direction == 3) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, -90);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 90);
+                        }
+                        else if (direction == 4) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, 0);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        }
+                        guard.SetActive(true);
+                        nextDirection = direction;
+                        if (dodge == 1) {
+                            dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 90);
+                        }
+                        else if (dodge == 2) {
+                            dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                        }
+                        else if (dodge == 3) {
+                            dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, -90);
+                        }
+                        else if (dodge == 4) {
+                            dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        }
                         dodgeArrow.SetActive(true);
                     }
                 }
             }
             else if (encounterOn) {
+                if (dodgeTimer == 0) {
+                    if (dodge == 1) {
+                        dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 90);
+                    }
+                    else if (dodge == 2) {
+                        dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                    }
+                    else if (dodge == 3) {
+                        dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, -90);
+                    }
+                    else if (dodge == 4) {
+                        dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    }
+                }
                 dodgeTimer += Time.deltaTime;
                 dodgeCircle.transform.localScale -= new Vector3(2 * Time.deltaTime, 2 * Time.deltaTime, 0);
-                if (dodge == 1) {
-                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 90);
-                }
-                else if (dodge == 2) {
-                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 180);
-                }
-                else if (dodge == 3) {
-                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, -90);
-                }
-                else if (dodge == 4) {
-                    dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
                 if (dodgeTimer > dodgeStop) {
                     dodgeTimer = 0;
                     dodge = Random.Range(1,5);
                     dodgeCircle.transform.localScale = dodgeCircleSize;
+                    currentDirection = nextDirection;
                     if (down == trapdoor) {
-                        direction = 1;
+                        nextDirection = 1;
                     }
                     else if (right == trapdoor) {
-                        direction = 2;
+                        nextDirection = 2;
                     }
                     else if (up == trapdoor) {
-                        direction = 3;
+                        nextDirection = 3;
                     }
                     else if (left == trapdoor) {
-                        direction = 4;
+                        nextDirection = 4;
                     }
                     else {
-                        direction = (int)path[path.Count - 1];
+                        nextDirection = (int)path[path.Count - 1];
                         path.RemoveAt(path.Count - 1);
                     }
-                    if (direction == 1) {
+                    if (currentDirection == nextDirection) {
+                        modifier = 0;
+                    }
+                    else if (currentDirection > nextDirection || (currentDirection == 1 && nextDirection == 4)) {
+                        modifier = -1;
+                    }
+                    else if (currentDirection < nextDirection || (currentDirection == 4 && nextDirection == 1)) {
+                        modifier = 1;
+                    }
+                    if (nextDirection == 1) {
                         MoveDown();
                     }
-                    if (direction == 2) {
+                    if (nextDirection == 2) {
                         transform.localScale = new Vector2(-0.5f, 0.5f);
                         MoveRight();
                     }
-                    if (direction == 3) {
+                    if (nextDirection == 3) {
                         MoveUp();
                     }
-                    if (direction == 4) {
+                    if (nextDirection == 4) {
                         transform.localScale = new Vector2(0.5f, 0.5f);
                         MoveLeft();
                     }
@@ -318,6 +372,7 @@ public class Player : MonoBehaviour
                     dodgeTimer = 0;
                     encounterOn = false;
                     dodgeArrow.SetActive(false);
+                    guard.SetActive(false);
                     if (dodge == 1) {
                         encounterUp = true;
                     }
@@ -432,16 +487,16 @@ public class Player : MonoBehaviour
             letterRight = false;
         }
         else if (encounterUp && (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))) {
-            letterUp = false;
+            encounterUp = false;
         }
         else if (encounterLeft && (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))) {
-            letterLeft = false;
+            encounterLeft = false;
         }
         else if (encounterDown && (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))) {
-            letterDown = false;
+            encounterDown = false;
         }
         else if (encounterRight && (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))) {
-            letterRight = false;
+            encounterRight = false;
         }
         if (countdownTimer.TimeRemaining <= 0) {
             Death();
@@ -504,6 +559,7 @@ public class Player : MonoBehaviour
         letterTwo.gameObject.SetActive(true);
         letterOn = false;
         dodgeArrow.SetActive(false);
+        guard.SetActive(false);
         dodgeTimer = 0;
         encounterOn = false;
         transform.position = start;
@@ -517,5 +573,6 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector2(0.5f, 0.5f);
         countdownTimer.TimeRemaining = countdownTimer.MaxTime;
         countdownTimer.SecondCounter = 0;
+        path.Clear();
     }
 }
