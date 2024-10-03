@@ -200,7 +200,7 @@ MonoBehaviour:
   TimeRemaining: 0
   SecondCounter: 0
   Dialogue: {fileID: 0}
-  victory: {fileID: 0}
+  victory: {fileID: 6810168056249942439, guid: 81c12f0e4f68c2044b2a0b480cd2f8c6, type: 3}
   VictoryScript: {fileID: 0}
 --- !u!1 &7289176695196459876
 GameObject:
