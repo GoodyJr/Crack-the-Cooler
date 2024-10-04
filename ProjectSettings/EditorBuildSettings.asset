@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 6.unity
     guid: 98502065ff660d34d8f2988adae154a3
   - enabled: 1
+    path: Assets/Scenes/Dusty.unity
+    guid: 8ae3709529780144899ccd0d6404a494
+  - enabled: 1
     path: Assets/Scenes/YouWin.unity
     guid: d7fb9361febeed841b09e99c8670cb56
   m_configObjects: {}
