@@ -241,7 +241,7 @@ public class Player : MonoBehaviour
                             position += new Vector2(gridSize, 0);
                         }
                     }
-                    else if (letter.Contains(map.GetTile(new Vector3Int(x, y, 0)))) {
+                    else if (letter.Contains(map.GetTile(new Vector3Int(x, y, 0))) && !encounterOn) {
                         firstLetter = Random.Range(0, 26);
                         secondLetter = Random.Range(0, 26);
                         thirdLetter = Random.Range(0, 26);
