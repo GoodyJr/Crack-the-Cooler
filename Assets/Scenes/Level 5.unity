@@ -1515,7 +1515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6393742559703323719, guid: 81c12f0e4f68c2044b2a0b480cd2f8c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6393742559703323719, guid: 81c12f0e4f68c2044b2a0b480cd2f8c6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1656,28 +1656,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[0]
-      value: Welcome to Crack The Cooler! (E to Continue)
+      value: Those big red buttons look dangerous.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[1]
-      value: Move around using WASD or the arrow keys
+      value: Oh yeah, those are guard alarms. If you step on one of them a guard
+        is probably going to show up. Those guys love to push me around.
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[2]
-      value: You can walk on GRAVEL TILES, but are stopped by ICE CUBES
+      value: I don't think I'm going to be able to avoid them, any tips for dealing
+        with the guards?
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[3]
-      value: ALGAE TILES are slippery, and you will die if you step on a TRAPDOOR
-        TILE
+      value: My recommendation? Dodge his punch, then counter-punch!
       objectReference: {fileID: 0}
     - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: lines.Array.data[4]
-      value: Have fun!
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276744377988888372, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
+      propertyPath: profileImage.Array.data[3]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6129699366231706388, guid: a41e1ad7188597348ab31d3fe7256338, type: 3}
       propertyPath: m_Name
@@ -2307,6 +2328,10 @@ PrefabInstance:
       propertyPath: MaxTime
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 838228000126000527, guid: 7b5137cb3a147e84aa986f41a6fa953e, type: 3}
+      propertyPath: victory
+      value: 
+      objectReference: {fileID: 1435113799}
     - target: {fileID: 838228000126000527, guid: 7b5137cb3a147e84aa986f41a6fa953e, type: 3}
       propertyPath: Dialogue
       value: 
