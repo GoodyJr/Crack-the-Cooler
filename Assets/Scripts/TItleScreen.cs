@@ -17,4 +17,8 @@ public class TitleScreen : MonoBehaviour
     {
         SceneManager.LoadScene("Level Select");
     }
+    public void CreditsButton()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }
