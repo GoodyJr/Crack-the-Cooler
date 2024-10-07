@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     bool letterRight = false;
 
     public TileBase encounter;
+    public TileBase encounterPressed;
     public GameObject dodgeArrow;
     public GameObject dodgeCircle;
     GameObject guard;
@@ -195,7 +196,7 @@ public class Player : MonoBehaviour
                 time += Time.deltaTime;
                 first = false;
                 if (encounterOn) {
-                    guard.transform.Rotate(0, 0, 90 * Time.deltaTime * speed * modifier);
+                    guard.transform.Rotate(0, 0, 90 * Time.deltaTime * speed * modifier * guard.transform.localScale.x);
                     guardChild.transform.Rotate(0, 0, 90 * Time.deltaTime * speed * modifier * -1);
                 }
                 if (time >= gridSize / speed) {
@@ -215,7 +216,8 @@ public class Player : MonoBehaviour
                     if (map.GetTile(new Vector3Int(x, y, 0)) == trapdoor) {
                         Death();
                     }
-                    else if (map.GetTile(new Vector3Int(x, y, 0)) == slippery) {
+                    else if (map.GetTile(new Vector3Int(x, y, 0)) == slippery && !encounterOn) {
+                        path.Add(path[path.Count - 1]);
                         if (direction == 1 && !wall.Contains(up)) {
                             moving = true;
                             time = 0;
@@ -261,6 +263,7 @@ public class Player : MonoBehaviour
                         rightNext = false;
                     }
                     else if (map.GetTile(new Vector3Int(x, y, 0)) == encounter) {
+                        map.SetTile(new Vector3Int(x, y, 0), encounterPressed);
                         time = 0;
                         encounterOn = true;
                         next = false;
@@ -274,15 +277,15 @@ public class Player : MonoBehaviour
                         dodgeCircle.transform.localScale = dodgeCircleSize;
                         if (direction == 1) {
                             guard.transform.rotation = Quaternion.Euler(0, 0, 90);
-                            guardChild.transform.rotation = Quaternion.Euler(0, 0, -90);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
                         }
                         else if (direction == 2) {
                             guard.transform.rotation = Quaternion.Euler(0, 0, 180);
-                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 180);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
                         }
                         else if (direction == 3) {
                             guard.transform.rotation = Quaternion.Euler(0, 0, -90);
-                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 90);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
                         }
                         else if (direction == 4) {
                             guard.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -358,6 +361,16 @@ public class Player : MonoBehaviour
                     }
                     if (nextDirection == 2) {
                         transform.localScale = new Vector2(-0.5f, 0.5f);
+                        guard.transform.localScale = new Vector2(-1, 1);
+                        guardChild.transform.localScale = new Vector2(-1, 1);
+                        if (currentDirection == 1) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, -90 * guard.transform.localScale.x);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        }
+                        else if (currentDirection == 3) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, 90 * guard.transform.localScale.x);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        }
                         MoveRight();
                     }
                     if (nextDirection == 3) {
@@ -365,6 +378,16 @@ public class Player : MonoBehaviour
                     }
                     if (nextDirection == 4) {
                         transform.localScale = new Vector2(0.5f, 0.5f);
+                        guard.transform.localScale = new Vector2(1, 1);
+                        guardChild.transform.localScale = new Vector2(1, 1);
+                        if (currentDirection == 1) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, 90 * guard.transform.localScale.x);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        }
+                        else if (currentDirection == 3) {
+                            guard.transform.rotation = Quaternion.Euler(0, 0, -90 * guard.transform.localScale.x);
+                            guardChild.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        }
                         MoveLeft();
                     }
                 }
@@ -388,21 +411,45 @@ public class Player : MonoBehaviour
                 }
             }
             else if (((Input.GetKeyDown(KeyCode.W) && !letterUp) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(1);
+                if (path.Count != 0 && (int)path[path.Count - 1] == 3) {
+                    path.RemoveAt(path.Count - 1);
+                }
+                else {
+                    path.Add(1);
+                }
                 MoveUp();
             }
             else if (((Input.GetKeyDown(KeyCode.A) && !letterLeft) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(2);
+                if (path.Count != 0 && (int)path[path.Count - 1] == 4) {
+                    path.RemoveAt(path.Count - 1);
+                }
+                else {
+                    path.Add(2);
+                }
                 transform.localScale = new Vector2(-0.5f, 0.5f);
+                guard.transform.localScale = new Vector2(-1, 1);
+                guardChild.transform.localScale = new Vector2(-1, 1);
                 MoveLeft();
             }
             else if (((Input.GetKeyDown(KeyCode.S) && !letterDown) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(3);
+                if (path.Count != 0 && (int)path[path.Count - 1] == 1) {
+                    path.RemoveAt(path.Count - 1);
+                }
+                else {
+                    path.Add(3);
+                }
                 MoveDown();
             }
             else if (((Input.GetKeyDown(KeyCode.D) && !letterRight) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin) {
-                path.Add(4);
+                if (path.Count != 0 && (int)path[path.Count - 1] == 2) {
+                    path.RemoveAt(path.Count - 1);
+                }
+                else {
+                    path.Add(4);
+                }
                 transform.localScale = new Vector2(0.5f, 0.5f);
+                guard.transform.localScale = new Vector2(1, 1);
+                guardChild.transform.localScale = new Vector2(1, 1);
                 MoveRight();
             }
             if (!first && !next && !dialog.activeSelf && !letterOn && !encounterOn) {
@@ -562,6 +609,7 @@ public class Player : MonoBehaviour
         guard.SetActive(false);
         dodgeTimer = 0;
         encounterOn = false;
+        map.SwapTile(encounterPressed, encounter);
         transform.position = start;
         position = start;
         x = (int)transform.position.x;
@@ -571,6 +619,8 @@ public class Player : MonoBehaviour
         down = map.GetTile(new Vector3Int(x, y - 1, 0));
         right = map.GetTile(new Vector3Int(x + 1, y, 0));
         transform.localScale = new Vector2(0.5f, 0.5f);
+        guard.transform.localScale = new Vector2(1, 1);
+        guardChild.transform.localScale = new Vector2(1, 1);
         countdownTimer.TimeRemaining = countdownTimer.MaxTime;
         countdownTimer.SecondCounter = 0;
         path.Clear();
