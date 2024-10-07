@@ -2856,6 +2856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wren
       objectReference: {fileID: 0}
+    - target: {fileID: 4379980541633371218, guid: b25f710d22fc3874580030e5a33d135a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
