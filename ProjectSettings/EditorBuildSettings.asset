@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 6.unity
     guid: 98502065ff660d34d8f2988adae154a3
   - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: f7698f4f7ea38184d89edd76d3c9cf84
+  - enabled: 1
     path: Assets/Scenes/Dusty.unity
     guid: 8ae3709529780144899ccd0d6404a494
   - enabled: 1
