@@ -15,7 +15,10 @@ public class Player : MonoBehaviour
     public GameObject Victory;
     public VictoryScript VictoryScript;
     public bool moving = false;
+    public bool next = false;
+    public bool nextDown = false;
     Rigidbody2D rb;
+    Animator anim;
     TileBase up;
     TileBase left;
     TileBase down;
@@ -30,8 +33,6 @@ public class Player : MonoBehaviour
     int y;
     int direction;
     bool first = false;
-    bool next = false;
-    bool nextDown = false;
     bool upNext = false;
     bool leftNext = false;
     bool downNext = false;
@@ -45,8 +46,11 @@ public class Player : MonoBehaviour
     ArrayList wall = new ArrayList();
 
     public TileBase trapdoor;
+    bool trap;
+    bool trapAnim;
 
     public TileBase slippery;
+    bool sliding;
 
     public TileBase letter0;
     public TileBase letter1;
@@ -77,6 +81,8 @@ public class Player : MonoBehaviour
     public GameObject dodgeCircle;
     GameObject guard;
     GameObject guardChild;
+    GameObject guardChildChild;
+    Animator guardAnim;
     ArrayList path = new ArrayList();
     Vector2 dodgeCircleSize = new Vector2(4, 4);
     bool encounterOn = false;
@@ -96,8 +102,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         guard = transform.GetChild(0).gameObject;
         guardChild = guard.transform.GetChild(0).gameObject;
+        guardChildChild = guardChild.transform.GetChild(0).gameObject;
+        guardAnim = guardChildChild.GetComponent<Animator>();
         countdownTimer = deathTimer.GetComponent<CountdownTimer>();
         VictoryScript = Victory.GetComponent<VictoryScript>();
         wall.Add(wall0);
@@ -124,6 +133,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("Moving", moving);
+        anim.SetBool("Next", next);
+        anim.SetBool("Next Down", nextDown);
+        anim.SetBool("Trap", trap);
+        anim.SetBool("Sliding", sliding);
+        guardAnim.SetBool("Moving", moving);
+        guardAnim.SetBool("Encounter", encounterOn);
         if (letterOn) {
             if (!one) {
                 if (Input.inputString == letterOne.text || Input.inputString == lowerCase[firstLetter].ToString()) {
@@ -201,6 +217,7 @@ public class Player : MonoBehaviour
                 }
                 if (time >= gridSize / speed) {
                     moving = false;
+                    sliding = false;
                     rb.velocity = new Vector2(0, 0);
                     transform.position = position;
                     x = (int)transform.position.x;
@@ -214,9 +231,11 @@ public class Player : MonoBehaviour
                     }
                     nextDown = false;
                     if (map.GetTile(new Vector3Int(x, y, 0)) == trapdoor) {
-                        Death();
+                        trap = true;
+                        StartCoroutine(Trapdoor());
                     }
                     else if (map.GetTile(new Vector3Int(x, y, 0)) == slippery && !encounterOn) {
+                        sliding = true;
                         path.Add(path[path.Count - 1]);
                         if (direction == 1 && !wall.Contains(up)) {
                             moving = true;
@@ -309,7 +328,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else if (encounterOn) {
+            else if (encounterOn && !trap) {
                 if (dodgeTimer == 0) {
                     if (dodge == 1) {
                         dodgeArrow.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -410,7 +429,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else if (((Input.GetKeyDown(KeyCode.W) && !letterUp) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.W) && !letterUp) || Input.GetKeyDown(KeyCode.UpArrow) || upNext) && !wall.Contains(up) && !dialog.activeSelf && !VictoryScript.youWin && !trap && !letterOn && !encounterOn) {
                 if (path.Count != 0 && (int)path[path.Count - 1] == 3) {
                     path.RemoveAt(path.Count - 1);
                 }
@@ -419,7 +438,7 @@ public class Player : MonoBehaviour
                 }
                 MoveUp();
             }
-            else if (((Input.GetKeyDown(KeyCode.A) && !letterLeft) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.A) && !letterLeft) || Input.GetKeyDown(KeyCode.LeftArrow) || leftNext) && !wall.Contains(left) && !dialog.activeSelf && !VictoryScript.youWin && !trap && !letterOn && !encounterOn) {
                 if (path.Count != 0 && (int)path[path.Count - 1] == 4) {
                     path.RemoveAt(path.Count - 1);
                 }
@@ -431,7 +450,7 @@ public class Player : MonoBehaviour
                 guardChild.transform.localScale = new Vector2(-1, 1);
                 MoveLeft();
             }
-            else if (((Input.GetKeyDown(KeyCode.S) && !letterDown) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.S) && !letterDown) || Input.GetKeyDown(KeyCode.DownArrow) || downNext) && !wall.Contains(down) && !dialog.activeSelf && !VictoryScript.youWin && !trap && !letterOn && !encounterOn) {
                 if (path.Count != 0 && (int)path[path.Count - 1] == 1) {
                     path.RemoveAt(path.Count - 1);
                 }
@@ -440,7 +459,7 @@ public class Player : MonoBehaviour
                 }
                 MoveDown();
             }
-            else if (((Input.GetKeyDown(KeyCode.D) && !letterRight) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin) {
+            else if (((Input.GetKeyDown(KeyCode.D) && !letterRight) || Input.GetKeyDown(KeyCode.RightArrow) || rightNext) && !wall.Contains(right) && !dialog.activeSelf && !VictoryScript.youWin && !trap && !letterOn && !encounterOn) {
                 if (path.Count != 0 && (int)path[path.Count - 1] == 2) {
                     path.RemoveAt(path.Count - 1);
                 }
@@ -452,7 +471,7 @@ public class Player : MonoBehaviour
                 guardChild.transform.localScale = new Vector2(1, 1);
                 MoveRight();
             }
-            if (!first && !next && !dialog.activeSelf && !letterOn && !encounterOn) {
+            if (!first && !next && !dialog.activeSelf && !trap && !letterOn && !encounterOn) {
                 if ((Input.GetKeyDown(KeyCode.W) && !letterUp && !encounterUp) || Input.GetKeyDown(KeyCode.UpArrow)) {
                     next = true;
                     upNext = true;
@@ -601,6 +620,7 @@ public class Player : MonoBehaviour
     }
 
     void Death() {
+        trap = false;
         letters.SetActive(false);
         letterOne.gameObject.SetActive(true);
         letterTwo.gameObject.SetActive(true);
@@ -624,5 +644,11 @@ public class Player : MonoBehaviour
         countdownTimer.TimeRemaining = countdownTimer.MaxTime;
         countdownTimer.SecondCounter = 0;
         path.Clear();
+    }
+
+    IEnumerator Trapdoor() {
+        yield return new WaitForSeconds(1);
+        trap = false;
+        Death();
     }
 }

@@ -53,6 +53,8 @@ public class VictoryScript : MonoBehaviour
 
         if (collision.gameObject == Wren && Player.moving == false && victorySequence == false)
         {
+            Player.next = false;
+            Player.nextDown = false;
             victorySequence = true;
         }
 

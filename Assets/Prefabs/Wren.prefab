@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2497138104869160276}
   - component: {fileID: 7902897206367147691}
   - component: {fileID: 6315747522823249517}
+  - component: {fileID: 521159284156276115}
   m_Layer: 0
   m_Name: Wren
   m_TagString: Untagged
@@ -107,6 +108,8 @@ MonoBehaviour:
   Victory: {fileID: 0}
   VictoryScript: {fileID: 0}
   moving: 0
+  next: 0
+  nextDown: 0
   wall0: {fileID: 11400000, guid: d44c8ff67e625464f987b0e08bc3d4a2, type: 2}
   wall1: {fileID: 11400000, guid: 7156d8badcea6c241ad8d9e0f701dd99, type: 2}
   wall2: {fileID: 11400000, guid: 9239050da99e3a048a3cc60ac28d6eab, type: 2}
@@ -188,6 +191,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &521159284156276115
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662471138306679833}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 724a7ba1aad37fd4da17a6e75f3f3790, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4379980541633371218
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3820614305937245179}
   - component: {fileID: 5903294847333601961}
+  - component: {fileID: 4339852088477878711}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -304,6 +329,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4339852088477878711
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107625425289447353}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4ba63d57a6d89a4aab4b9718b91f75b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8663484373813594094
 GameObject:
   m_ObjectHideFlags: 0
