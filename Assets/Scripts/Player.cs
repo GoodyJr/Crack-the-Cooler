@@ -141,6 +141,9 @@ public class Player : MonoBehaviour
         anim.SetBool("Next", next);
         anim.SetBool("Next Down", nextDown);
         anim.SetBool("Trap", trap);
+        if (trap) {
+            Debug.Log("trap");
+        }
         anim.SetBool("Sliding", sliding);
         if (guard.activeSelf == true) {
             guardAnim.SetBool("Moving", moving);
