@@ -3933,6 +3933,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4427838439765596852, guid: 99a535a863e65054e88ee0ce9c2009ab, type: 3}
+      propertyPath: m_Text
+      value: 'Trapdoor Tile: Lose the game.
+
+
+        Algae Tile: Slide across it
+        to the next tile.'
+      objectReference: {fileID: 0}
     - target: {fileID: 8296664484088219731, guid: 99a535a863e65054e88ee0ce9c2009ab, type: 3}
       propertyPath: m_Name
       value: PauseMenu

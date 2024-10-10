@@ -890,7 +890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
-  wren: {fileID: 0}
+  wren: {fileID: 3662471138306679833, guid: b25f710d22fc3874580030e5a33d135a, type: 3}
 --- !u!114 &1261837923
 MonoBehaviour:
   m_ObjectHideFlags: 0
