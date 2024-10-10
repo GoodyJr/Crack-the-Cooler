@@ -95,13 +95,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Next
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Next Down
+  - m_Name: No Input
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -274,11 +268,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Moving
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Next
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Next Down
+  - m_ConditionMode: 1
+    m_ConditionEvent: No Input
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Trap
